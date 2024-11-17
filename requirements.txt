@@ -1,5 +1,5 @@
 scikit-image
-diffusers==0.16.1
+diffusers==0.18.0
 spacy
 gradio
 ftfy
@@ -9,5 +9,6 @@ numba
 nltk
 inflect
 joblib
-accelerate==0.23.0
+accelerate==0.26.0
 huggingface_hub==0.25.2
+numpy<2
