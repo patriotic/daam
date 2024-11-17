@@ -1,12 +1,13 @@
 scikit-image
-diffusers==0.21.2
+diffusers==0.16.1
 spacy
 gradio
 ftfy
-transformers==4.30.2
+transformers
 pandas
 numba
 nltk
 inflect
 joblib
 accelerate==0.23.0
+huggingface_hub==0.25.2
