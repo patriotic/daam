@@ -15,6 +15,7 @@ from .experiment import GenerationExperiment
 from .heatmap import RawHeatMapCollection, GlobalHeatMap
 from .hook import ObjectHooker, AggregateHooker, UNetCrossAttentionLocator
 
+import inspect
 
 __all__ = ['trace', 'DiffusionHeatMapHooker', 'GlobalHeatMap']
 
@@ -297,7 +298,8 @@ class UNetCrossAttentionHooker(ObjectHooker[Attention]):
 
             for head_idx, heatmap in enumerate(maps):
                 self.heat_maps.update(factor, self.layer_idx, head_idx, heatmap)
-
+        print("heatmaps length: ",len(self.heat_maps.ids_to_heatmaps))
+        print("Generation Index: ", self.trace._gen_idx)
         hidden_states = torch.bmm(attention_probs, value)
         hidden_states = attn.batch_to_head_dim(hidden_states)
 
@@ -305,10 +307,10 @@ class UNetCrossAttentionHooker(ObjectHooker[Attention]):
         hidden_states = attn.to_out[0](hidden_states)
         # dropout
         hidden_states = attn.to_out[1](hidden_states)
-
         return hidden_states
 
     def _hook_impl(self):
+        print(inspect.getsource(self.module.processor.__call__))
         self.original_processor = self.module.processor
         self.module.set_processor(self)
 
